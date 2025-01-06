@@ -409,8 +409,8 @@
   color: #666;
 }
 
-/* Media Queries */
 @media (max-width: 768px) {
+  /* Main Layout awal tetap sama */
   .mainContent {
     margin-left: 0;
   }
@@ -419,6 +419,7 @@
     padding: 0.75rem;
   }
 
+  /* Navigation dan Controls tetap sama */
   .monthNavigation {
     flex-wrap: wrap;
     justify-content: center;
@@ -444,8 +445,45 @@
     font-size: 0.875rem;
   }
 
-  .tableWrapper {
+  /* Table container untuk horizontal scroll */
+  .tableContainer {
+    width: 100%;
     overflow-x: auto;
+  }
+
+  .tableWrapper {
+    min-width: 768px; /* Minimal lebar untuk 3 bulan */
+  }
+
+  /* Table styling */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .headerRow th {
+    white-space: nowrap;
+  }
+
+  /* Kolom nomor fixed */
+  .noColumn {
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 2;
+    width: 50px;
+    min-width: 50px;
+  }
+
+  .projectColumn {
+    min-width: 200px;
+    background: white;
+  }
+
+  /* Kolom minggu */
+  .weekCell {
+    min-width: 50px;
+    text-align: center;
   }
 
   .stickyNote {
