@@ -210,33 +210,112 @@
 @media (max-width: 768px) {
   .mainContent {
     margin-left: 0;
-    max-width: 100vw;
-    padding: 20px;
+    max-width: 100%;
+    padding: 15px;
+    margin-top: 3rem;
   }
 
   .profileWrapper {
     padding: 0;
+    margin-top: 1rem; /* Tambahkan margin top untuk geser kebawah */
   }
 
   .profileCard {
-    padding: 1.5rem;
+    padding: 1rem;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .photoSection {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
   }
 
   .profilePhoto {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
+  }
+
+  .photoUploadButton {
+    width: auto; /* Ubah dari 100% ke auto */
+    min-width: 80px; /* Berikan minimal width */
+    text-align: center;
+    display: inline-flex; /* Ubah ke inline-flex */
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.8rem;
+    padding: 8px 16px; /* Sesuaikan padding */
+    font-size: 0.9rem; /* Kecilkan font size */
+  }
+
+  .formSection {
+    width: 100%;
+  }
+
+  .formGroup {
+    margin-bottom: 1rem;
+    width: 100%;
   }
 
   .formGroup label {
     font-size: 0.9rem;
   }
 
-  .inputField, .saveButton, .cancelButton {
+  .inputField {
+    width: 100%;
+    box-sizing: border-box;
     font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+
+  .passwordContainer {
+    width: 100%;
+    position: relative;
+  }
+
+  .eyeButton {
+    top: 50%;
+    right: 8px;
+    font-size: 16px;
+  }
+
+  .saveButton, 
+  .cancelButton,
+  .changeCredentialsButton {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 10px;
+    margin-top: 0.8rem;
+    text-align: center;
   }
 
   .modalContent {
-    width: 95%;
-    padding: 1.5rem;
+    width: 90%;
+    max-width: none;
+    padding: 1rem;
+    margin: 0 1rem;
+    box-sizing: border-box;
+  }
+
+  .modalButtons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .modalButtons button {
+    width: 100%;
+    margin: 0;
+  }
+
+  .modal {
+    padding: 1rem;
+  }
+
+  .loading, 
+  .error {
+    padding: 1rem;
+    margin: 1rem;
+    font-size: 0.9rem;
   }
 }
