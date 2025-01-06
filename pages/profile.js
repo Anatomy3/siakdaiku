@@ -140,7 +140,7 @@ export default function Profile() {
           <div className={styles.photoSection}>
             <img src={photoPreview} alt="Profile" className={styles.profilePhoto} />
             <label htmlFor="photo-upload" className={styles.photoUploadButton}>
-              Ubah
+              Ubah Foto
             </label>
             <input
               id="photo-upload"
