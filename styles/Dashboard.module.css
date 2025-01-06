@@ -1,0 +1,396 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.kontenUtama {
+  margin-left: 16rem;
+  margin-top: 3rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  font-family: 'Poppins', sans-serif;
+  height: calc(100vh - 3rem);
+  padding-right: 20px;
+  background-color: #ffffff;
+}
+
+.kontenDashboard {
+  width: 100%;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.barisUtama {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-top: 20px; /* Menambahkan margin top disini */
+}
+
+.headerKartu {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tanggalDanIndikator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tanggalHariIni {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: normal;
+}
+
+.indikatorHariIni {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #4CAF50;
+  font-size: 0.8rem;
+}
+
+.titikHariIni {
+  width: 6px;
+  height: 6px;
+  background-color: #4CAF50;
+  border-radius: 50%;
+}
+
+.tombolBuatLaporan {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.tombolBuatLaporan:hover {
+  background-color: #45a049;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.kartuLaporan {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  margin-bottom: 24px;
+  height: 340px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.barisKartu {
+  display: flex;
+  gap: 12px;
+  height: 200px;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+.kartu {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.kartu h3, .kartuLaporan h3 {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.gridStatus {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+  gap: 6px;
+  overflow-y: auto;
+}
+
+.itemStatus {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.labelStatus {
+  font-size: 0.7rem;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+.jumlahStatus {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.jumlahPengguna {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #4CAF50;
+  text-align: center;
+  margin: auto;
+}
+
+.pembungkusTabel {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 6px;
+}
+
+.tabel {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9px;
+  table-layout: fixed;
+}
+
+.tabel th, .tabel td {
+  border: 1px solid #ddd;
+  padding: 6px;
+  text-align: left;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tabel th {
+  background-color: #4CAF50;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tabel th:nth-child(1), .tabel td:nth-child(1) { width: 20%; }
+.tabel th:nth-child(2), .tabel td:nth-child(2) { width: 15%; }
+.tabel th:nth-child(3), .tabel td:nth-child(3) { width: 55%; }
+.tabel th:nth-child(4), .tabel td:nth-child(4) { width: 10%; }
+
+.daftarAktivitas {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.itemAktivitas {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 8px;
+}
+
+.barAktivitas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #4CAF50;
+}
+
+.kontenAktivitas {
+  flex: 1;
+  font-size: 0.75rem;
+  line-height: 1.1;
+  color: #666;
+}
+
+.judulAktivitas {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1px;
+}
+
+.deskripsiAktivitas {
+  color: #888;
+  margin-bottom: 1px;
+}
+
+.waktuAktivitas {
+  font-size: 0.6rem;
+  color: #999;
+  background-color: #f0f0f0;
+  padding: 1px 2px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 1px;
+}
+
+.statusLaporan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.jumlahLaporan {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.deskripsiLaporan {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.copyright {
+  padding: 5px 10px;
+  text-align: left;
+  font-size: 0.8rem;
+  background-color: white;
+  border-radius: 6px;
+  display: inline-block;
+  width: auto;
+  line-height: 1;
+  margin-top: auto;
+}
+
+.copyright a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: block;
+}
+
+.copyright a:hover {
+  color: #4CAF50;
+}
+
+@media (min-width: 1025px) {
+  .tabel {
+    font-size: 11px;
+  }
+  
+  .kartu h3, .kartuLaporan h3 {
+    font-size: 1.1rem;
+  }
+
+  .tanggalHariIni {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .barisKartu {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .kartu {
+    height: 200px;
+  }
+  
+  .tombolBuatLaporan {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .kontenUtama {
+    margin-left: 0;
+    padding: 0px;
+    margin-top: 3rem;
+    background-color: #ffffff;
+  }
+  
+  .kontenDashboard {
+    padding: 10px 15px 10px 10px;
+    background-color: #ffffff;
+  }
+
+  .barisUtama {
+    margin-top: 15px; /* Menyesuaikan margin-top untuk mobile */
+  }
+
+  .kartuLaporan, .kartu, .copyright {
+    margin-bottom: 20px;
+    width: calc(100% - 15px);
+    margin-left: 0;
+    margin-right: 15px;
+    border-radius: 4px;
+  }
+  
+  .barisKartu {
+    flex-direction: column;
+    height: auto;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .kartu {
+    height: auto;
+    min-height: 150px;
+  }
+
+  .tabel {
+    font-size: 8px;
+  }
+
+  .tabel th, .tabel td {
+    padding: 4px;
+  }
+
+  .jumlahLaporan, .jumlahPengguna {
+    font-size: 2rem;
+  }
+
+  .deskripsiLaporan {
+    font-size: 0.8rem;
+  }
+
+  .tanggalDanIndikator {
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .tanggalHariIni {
+    font-size: 0.8rem;
+  }
+
+  .indikatorHariIni {
+    font-size: 0.75rem;
+  }
+
+  .titikHariIni {
+    width: 5px;
+    height: 5px;
+  }
+}

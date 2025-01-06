@@ -1,0 +1,454 @@
+/* styles/Projek.module.css */
+.mainContent {
+  margin-left: 16rem;
+  margin-top: 3rem;
+  height: calc(100vh - 3rem);
+  background-color: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Navigation Bar */
+.monthNavigation {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 10;
+}
+
+.leftControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.centerNavigation {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.rightControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.toolbarBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 6px;
+  background: #f8f9fa;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+.toolbarBtn:not(:disabled):hover {
+  background: #e9ecef;
+}
+
+.toolbarBtn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #f8f9fa;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.navButton:hover {
+  background: #e9ecef;
+}
+
+.monthRange {
+  min-width: 200px;
+  text-align: center;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Color Picker */
+.colorPickerContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.colorPickerButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.colorPickerButton:hover {
+  color: #4CAF50;
+}
+
+.colorPickerPopup {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 12px;
+  min-width: 240px;
+  z-index: 99999 !important;
+}
+
+.colorRows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  z-index: 99999;
+}
+
+.colorRow {
+  display: flex;
+  gap: 6px;
+}
+
+.colorButton {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #ffffff;
+  outline: 1px solid #e0e0e0;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease;
+  z-index: 99999;
+}
+
+.colorButton:hover {
+  transform: scale(1.1);
+}
+
+/* Save Warning */
+.saveWarning {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ff9800;
+  font-size: 0.875rem;
+  padding: 0.75rem 1.25rem;
+  background-color: #fff3e0;
+  border-radius: 6px;
+}
+
+/* Font Size Picker */
+.fontSizePickerContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.fontSizeSelect {
+  padding: 0.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+}
+
+/* Table Container */
+.tableContainer {
+  flex: 1;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.tableWrapper {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Table Styles */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  background: white;
+  table-layout: fixed;
+}
+
+.headerRow th {
+  background: #4CAF50;
+  color: white;
+  font-weight: 500;
+  padding: 0.75rem;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.noColumn {
+  position: sticky;
+  left: 0;
+  width: 40px !important;
+  min-width: 40px !important;
+  max-width: 40px !important;
+  background: white;
+  z-index: 20;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+
+.projectColumn {
+  position: sticky;
+  left: 40px;
+  width: 200px !important;
+  min-width: 200px !important;
+  max-width: 200px !important;
+  background: white;
+  z-index: 20;
+  border: 1px solid #e0e0e0;
+}
+
+.monthHeader {
+  background: #4CAF50;
+  border: 1px solid #fff;
+  min-width: 200px;
+}
+
+.weekCell {
+  width: 50px !important;
+  min-width: 50px !important;
+  max-width: 50px !important;
+  padding: 0;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  background: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tableRow td {
+  border: 1px solid #e0e0e0;
+}
+
+.selectedRow td {
+  background-color: rgba(255, 152, 0, 0.1);
+}
+
+/* Add Row */
+.addRow td {
+  border: none;
+  background: transparent !important;
+}
+
+.addRowButton {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: #4CAF50;
+  color: white;
+  cursor: pointer;
+  margin: auto;
+  transition: all 0.2s ease;
+}
+
+.addRowButton:hover {
+  background: #43a047;
+  transform: scale(1.1);
+}
+
+/* Editable Cells */
+.projectInput,
+.weekInput {
+  width: 100%;
+  min-height: 36px;
+  padding: 8px;
+  outline: none;
+  border: none;
+  background: transparent;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow: hidden;
+  display: block;
+  max-height: 100%;
+}
+
+.projectInput:focus,
+.weekInput:focus {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.weekInput {
+  text-align: center;
+}
+
+/* Sticky Notes */
+.stickyNote {
+  position: absolute;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  overflow: visible;
+  user-select: none;
+  will-change: transform, width, height;
+}
+
+.noteContent {
+  width: 100%;
+  height: calc(100% - 8px);
+  padding: 8px;
+  margin: 4px;
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
+  font-family: inherit;
+  color: inherit;
+  cursor: text;
+  overflow-y: auto;
+  word-wrap: break-word;
+}
+
+.noteContent:focus {
+  outline: none;
+}
+
+.deleteNoteButton {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.stickyNote:hover .deleteNoteButton {
+  opacity: 1;
+}
+
+.deleteNoteButton:hover {
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.resizeHandle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  cursor: se-resize;
+  background: linear-gradient(135deg, transparent 50%, rgba(0, 0, 0, 0.1) 50%);
+  border-radius: 0 0 8px 0;
+  transform-origin: bottom right;
+  transition: background 0.2s ease;
+}
+
+.resizeHandle:hover {
+  background: linear-gradient(135deg, transparent 50%, rgba(0, 0, 0, 0.2) 50%);
+}
+
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .mainContent {
+    margin-left: 0;
+  }
+
+  .container {
+    padding: 0.75rem;
+  }
+
+  .monthNavigation {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .leftControls,
+  .rightControls {
+    flex: none;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .centerNavigation {
+    position: static;
+    transform: none;
+    order: -1;
+    margin-bottom: 1rem;
+  }
+
+  .toolbarBtn {
+    padding: 0.6rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .tableWrapper {
+    overflow-x: auto;
+  }
+
+  .stickyNote {
+    min-width: 200px;
+  }
+}

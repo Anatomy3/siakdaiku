@@ -1,0 +1,88 @@
+// prisma/schema.prisma
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Proyek {
+  id        Int       @id @default(autoincrement())
+  project   String    
+  bulan1    String?   // Jan (minggu1,minggu2,minggu3,minggu4)
+  bulan2    String?   // Feb
+  bulan3    String?   // Mar
+  bulan4    String?   // Apr
+  bulan5    String?   // May
+  bulan6    String?   // Jun
+  bulan7    String?   // Jul
+  bulan8    String?   // Aug
+  bulan9    String?   // Sep
+  bulan10   String?   // Oct
+  bulan11   String?   // Nov
+  bulan12   String?   // Dec
+  status    String?   @default("draft")    // draft, saved, archived
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Employee {
+  id          Int            @id @default(autoincrement())
+  username    String         @unique
+  email       String?
+  department  String?
+  password    String
+  whatsapp    String?
+  photo       String?  
+  fullName    String?  
+  role        String?
+  activities  UserActivity[]
+  documents   Document[]
+}
+
+model LaporanHarian {
+  id              Int      @id @default(autoincrement())
+  namaLengkap     String
+  tanggalLaporan  DateTime
+  dariJam         String
+  hinggaJam       String
+  progressHarian  String
+  statusHarian    String
+  waktuPengiriman DateTime @default(now())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model UserActivity {
+  id          Int      @id @default(autoincrement())
+  employeeId  Int
+  description String
+  timestamp   DateTime @default(now())
+  employee    Employee @relation(fields: [employeeId], references: [id])
+}
+
+model Document {
+  id        Int      @id @default(autoincrement())
+  name      String
+  type      String
+  filePath  String   // Ubah dari content ke filePath
+  uploadedBy Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  employee  Employee @relation(fields: [uploadedBy], references: [id])
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  message     String
+  sender      String?
+  recipientType String  // 'all', 'department', 'individual'
+  recipient   String?  // bisa berisi id karyawan atau nama departemen
+  status      String   @default("sent") // 'sent', 'delivered', 'read'
+  timestamp   DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

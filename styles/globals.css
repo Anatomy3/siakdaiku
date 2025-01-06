@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+html, 
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Custom Scrollbar Styles */
+body::-webkit-scrollbar,
+div::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+body::-webkit-scrollbar-track,
+div::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb,
+div::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    45deg,
+    #FFA500 0%,
+    #FF8C00 25%,
+    #4CAF50 75%,
+    #45a049 100%
+  );
+  border-radius: 5px;
+  border: 2px solid #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb:hover,
+div::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    45deg,
+    #FF8C00 0%,
+    #FF7000 25%,
+    #45a049 75%,
+    #388E3C 100%
+  );
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #4CAF50 #f1f1f1;
+}
+
+/* Main Content Layout */
+.mainContent {
+  margin-left: 14.4rem;
+  padding-top: 60px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .mainContent {
+    margin-left: 0;
+  }
+
+  /* Adjust scrollbar size for mobile */
+  body::-webkit-scrollbar,
+  div::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+/* Prevent text selection */
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
