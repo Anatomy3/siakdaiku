@@ -1,6 +1,6 @@
 // components/Sidebar.js
 import { useState, useEffect, useRef } from 'react';
-import { FaRegCalendarAlt, FaUser, FaSignOutAlt, FaBars, FaMoneyCheckAlt, FaProjectDiagram } from 'react-icons/fa';
+import { FaRegCalendarAlt, FaUser, FaSignOutAlt, FaBars, FaProjectDiagram } from 'react-icons/fa';
 import { MdDashboard } from 'react-icons/md';
 import { useRouter } from 'next/router';
 import styles from '../styles/Sidebar.module.css';
@@ -148,13 +148,11 @@ export default function Sidebar() {
     { path: '/dashboard', icon: <MdDashboard className={styles.icon} />, label: 'DASHBOARD' },
     { path: '/laporan_karyawan', icon: <FaRegCalendarAlt className={styles.icon} />, label: 'LAPORAN KARYAWAN' },
     { path: '/kelola_karyawan', icon: <FaUser className={styles.icon} />, label: 'KELOLA KARYAWAN' },
-    { path: '/form', icon: <FaMoneyCheckAlt className={styles.icon} />, label: 'FORM' },
     { path: '/projek', icon: <FaProjectDiagram className={styles.icon} />, label: 'PROJEK' },
   ] : [
     { path: '/dashboard', icon: <MdDashboard className={styles.icon} />, label: 'DASHBOARD' },
     { path: '/laporan_harian', icon: <FaRegCalendarAlt className={styles.icon} />, label: 'BUAT LAPORAN' },
     { path: '/laporan_karyawan', icon: <FaRegCalendarAlt className={styles.icon} />, label: 'RIWAYAT LAPORAN' },
-    { path: '/form', icon: <FaMoneyCheckAlt className={styles.icon} />, label: 'FORM' },
     { path: '/projek', icon: <FaProjectDiagram className={styles.icon} />, label: 'PROJEK' },
   ];
 
