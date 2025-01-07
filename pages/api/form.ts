@@ -1,3 +1,4 @@
+// pages/api/form.ts
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import { IncomingForm } from 'formidable';
@@ -44,73 +45,75 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 async function getDocuments(req: NextApiRequest, res: NextApiResponse) {
   try {
-    console.log("Fetching all documents");
     const documents = await prisma.document.findMany({
-      orderBy: {
-        createdAt: 'desc',
-      },
+      orderBy: { createdAt: 'desc' },
     });
-    console.log(`Found ${documents.length} documents`);
     res.status(200).json(documents);
   } catch (error) {
     console.error('Error fetching documents:', error);
-    res.status(500).json({ message: 'Error fetching documents', error: error instanceof Error ? error.message : 'Unknown error' });
+    res.status(500).json({ 
+      message: 'Error fetching documents', 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
   }
+}
+
+function getMimeType(filename: string): string {
+  const ext = path.extname(filename).toLowerCase();
+  const mimeTypes: { [key: string]: string } = {
+    '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    '.doc': 'application/msword',
+    '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    '.xls': 'application/vnd.ms-excel',
+    '.pdf': 'application/pdf',
+    '.txt': 'text/plain'
+  };
+  return mimeTypes[ext] || 'application/octet-stream';
 }
 
 async function getDocumentContent(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
   try {
-    console.log(`Fetching content for document id: ${id}`);
     const document = await prisma.document.findUnique({
       where: { id: Number(id) },
     });
+
     if (!document) {
-      console.log(`Document with id ${id} not found in database`);
-      return res.status(404).json({ message: 'Document not found in database' });
+      return res.status(404).json({ message: 'Document not found' });
     }
-    
-    console.log(`Document found in database: ${JSON.stringify(document)}`);
-    const filePath = path.join(process.cwd(), document.filePath);
-    console.log(`Full file path: ${filePath}`);
+
+    // Get the correct file path
+    const filePath = path.join(process.cwd(), 'public', 'uploads', path.basename(document.filePath));
     
     if (!fs.existsSync(filePath)) {
-      console.log(`File not found on server: ${filePath}`);
       return res.status(404).json({ message: 'File not found on server' });
     }
-    
+
     const stats = fs.statSync(filePath);
-    console.log(`File size: ${stats.size} bytes`);
-    
     if (stats.size === 0) {
-      console.log(`File is empty: ${filePath}`);
       return res.status(404).json({ message: 'File is empty' });
     }
-    
-    const fileExtension = path.extname(document.name).toLowerCase();
-    let contentType = 'application/octet-stream';
-    if (fileExtension === '.xlsx' || fileExtension === '.xls') {
-      contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-    } else if (fileExtension === '.docx' || fileExtension === '.doc') {
-      contentType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
-    }
-    
-    res.setHeader('Content-Disposition', `attachment; filename=${encodeURIComponent(document.name)}`);
-    res.setHeader('Content-Type', contentType);
+
+    // Set appropriate headers
     res.setHeader('Content-Length', stats.size);
-    
+    res.setHeader('Content-Type', getMimeType(document.name));
+    res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(document.name)}"`);
+
+    // Stream the file
     const fileStream = fs.createReadStream(filePath);
     fileStream.pipe(res);
   } catch (error) {
-    console.error('Error fetching document content:', error);
-    res.status(500).json({ message: 'Error fetching document content', error: error instanceof Error ? error.message : 'Unknown error' });
+    console.error('Error serving document:', error);
+    res.status(500).json({ 
+      message: 'Error serving document', 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
   }
 }
 
 async function uploadDocument(req: NextApiRequest, res: NextApiResponse) {
-  console.log("Starting upload process");
   const form = new IncomingForm({
-    uploadDir: uploadDir,
+    uploadDir,
     keepExtensions: true,
     maxFileSize: 10 * 1024 * 1024, // 10MB limit
   });
@@ -121,40 +124,50 @@ async function uploadDocument(req: NextApiRequest, res: NextApiResponse) {
       return res.status(500).json({ message: 'Error uploading file', error: err.message });
     }
 
-    console.log("Files received:", files);
     const file = files.file?.[0];
     if (!file) {
-      console.log("No file received in the request");
-      return res.status(400).json({ message: 'Missing file' });
+      return res.status(400).json({ message: 'No file uploaded' });
     }
 
-    console.log("File path:", file.filepath);
-
     try {
-      const relativeFilePath = path.relative(process.cwd(), file.filepath);
-      const fileExtension = path.extname(file.originalFilename || '').toLowerCase();
-      const type = fileExtension === '.docx' || fileExtension === '.doc' ? 'word' : 
-                   fileExtension === '.xlsx' || fileExtension === '.xls' ? 'excel' : 'other';
+      // Generate unique filename and move file
+      const fileExt = path.extname(file.originalFilename || '');
+      const uniqueFilename = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}${fileExt}`;
+      const finalPath = path.join(uploadDir, uniqueFilename);
+      
+      fs.renameSync(file.filepath, finalPath);
 
-      console.log("Creating document in database");
+      // Determine document type
+      const type = fileExt.toLowerCase();
+      const documentType = 
+        ['.doc', '.docx'].includes(type) ? 'word' :
+        ['.xls', '.xlsx'].includes(type) ? 'excel' : 
+        'other';
+
+      // Save to database
       const document = await prisma.document.create({
         data: {
           name: file.originalFilename || 'Unnamed',
-          type: type,
-          filePath: relativeFilePath,
-          uploadedBy: 1, // Replace with actual employee ID or get from session
+          type: documentType,
+          filePath: `public/uploads/${uniqueFilename}`,
+          uploadedBy: 1, // Replace with actual user ID
         },
       });
 
-      console.log("Document created successfully:", document);
-      res.status(200).json({ message: 'File uploaded successfully', document });
+      res.status(200).json({ 
+        message: 'File uploaded successfully', 
+        document 
+      });
     } catch (error) {
-      console.error('Error saving to database:', error);
-      if (error instanceof Error) {
-        res.status(500).json({ message: 'Error saving file information', error: error.message, stack: error.stack });
-      } else {
-        res.status(500).json({ message: 'Error saving file information', error: 'Unknown error' });
+      console.error('Error saving document:', error);
+      // Clean up file if database save fails
+      if (fs.existsSync(file.filepath)) {
+        fs.unlinkSync(file.filepath);
       }
+      res.status(500).json({ 
+        message: 'Error saving document', 
+        error: error instanceof Error ? error.message : 'Unknown error' 
+      });
     }
   });
 }
@@ -162,7 +175,6 @@ async function uploadDocument(req: NextApiRequest, res: NextApiResponse) {
 async function deleteDocument(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
   try {
-    console.log(`Deleting document with id: ${id}`);
     const document = await prisma.document.findUnique({
       where: { id: Number(id) },
     });
@@ -171,19 +183,23 @@ async function deleteDocument(req: NextApiRequest, res: NextApiResponse) {
       return res.status(404).json({ message: 'Document not found' });
     }
 
+    // Delete file
     const filePath = path.join(process.cwd(), document.filePath);
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
     }
 
+    // Delete from database
     await prisma.document.delete({
       where: { id: Number(id) },
     });
 
-    console.log("Document deleted successfully");
     res.status(200).json({ message: 'Document deleted successfully' });
   } catch (error) {
     console.error('Error deleting document:', error);
-    res.status(500).json({ message: 'Error deleting document', error: error instanceof Error ? error.message : 'Unknown error' });
+    res.status(500).json({ 
+      message: 'Error deleting document', 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
   }
 }
