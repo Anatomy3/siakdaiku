@@ -1,3 +1,4 @@
+// pages/form.js
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { Plus, FileText, FileSpreadsheet, File, Trash2, Download, Info } from 'lucide-react';
@@ -78,30 +79,40 @@ const Form = () => {
 
   const handleDownload = async (id, name) => {
     try {
-      console.log(`Attempting to download document: ${name} (ID: ${id})`);
-      const response = await fetch(`/api/form?id=${id}`);
+      const response = await fetch(`/api/form?id=${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       
       if (!response.ok) {
-        throw new Error(`Gagal mengambil dokumen: ${response.statusText}`);
+        throw new Error(`Download failed: ${response.statusText}`);
       }
-      
+
+      // Get the blob from response
       const blob = await response.blob();
-      if (blob.size === 0) {
-        throw new Error('File kosong atau tidak ditemukan di server');
-      }
       
+      // Create URL for blob
       const url = window.URL.createObjectURL(blob);
+      
+      // Create download link
       const a = document.createElement('a');
-      a.style.display = 'none';
       a.href = url;
       a.download = name;
       document.body.appendChild(a);
+      
+      // Trigger download
       a.click();
+      
+      // Cleanup
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
+      
+      setUploadStatus(`Berhasil mengunduh ${name}`);
     } catch (error) {
-      console.error('Error mengunduh dokumen:', error);
-      setUploadStatus(`Gagal mengunduh dokumen ${name}. ${error.message}`);
+      console.error('Download error:', error);
+      setUploadStatus(`Gagal mengunduh ${name}: ${error.message}`);
     }
   };
 
@@ -141,7 +152,6 @@ const Form = () => {
         </div>
 
         <div className={styles.documentList}>
-          {/* Upload Card */}
           <label className={styles.uploadCard}>
             <input 
               type="file" 
@@ -154,7 +164,6 @@ const Form = () => {
             <span className={styles.uploadText}>Unggah Dokumen</span>
           </label>
 
-          {/* Document Cards */}
           {!isLoading && !error && documents.map((doc) => (
             <div key={doc.id} className={styles.documentItem}>
               <div className={styles.documentInfo}>
@@ -183,12 +192,10 @@ const Form = () => {
             </div>
           ))}
 
-          {/* Loading State */}
           {isLoading && (
             <div className={styles.loading}>Memuat dokumen...</div>
           )}
 
-          {/* Error State */}
           {error && (
             <div className={styles.error}>{error}</div>
           )}
